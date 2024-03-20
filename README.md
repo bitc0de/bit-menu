@@ -1,10 +1,7 @@
-![menu](https://raw.githubusercontent.com/swkeep/keep-menu/master/.github/images/menu.jpg)
-![menu](https://raw.githubusercontent.com/swkeep/keep-menu/master/.github/images/overlay.jpg)
-![menu](https://raw.githubusercontent.com/swkeep/keep-menu/master/.github/images/next&pervious.png)
-![menu](https://raw.githubusercontent.com/swkeep/keep-menu/master/.github/images/searchbar.png)
-![menu](https://raw.githubusercontent.com/swkeep/keep-menu/master/.github/images/range_slider.png)
+![menu]([https://raw.githubusercontent.com/swkeep/keep-menu/master/.github/images/menu.jpg](https://i.ibb.co/xF3H2w3/image.png))
 
-This is a modified version of **[NH Context](https://github.com/nerohiro/nh-context)** by **[NeroHiro](https://github.com/nerohiro) [LICENSE](https://github.com/nerohiro/nh-context/blob/main/LICENSE)**
+
+This is a modified version of **[NH Context](https://github.com/nerohiro/nh-context)** by **[NeroHiro](https://github.com/nerohiro) and adapted by **[bitc0de](https://github.com/bitc0de)**
 
 # Usage
 
