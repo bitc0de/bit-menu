@@ -1,98 +1,76 @@
 local QBCore = nil
-local DevMode = false
+local DevMode = true
 if GetResourceState('qb-core') == 'started' then
     QBCore = exports['qb-core']:GetCoreObject()
 end
 
 local Promise, ActiveMenu = nil, false
-local inventoryName = 'qb-inventory' -- @swkeep: make sure script using correct name
+local inventoryName = 'qb-inventory'
 
--- if you're not using qbcore change this where your inventory's images are
 local img = "nui://" .. inventoryName .. "/html/images/"
 
 RegisterNUICallback("dataPost", function(data, cb)
-    local id = tonumber(data.id) + 1 or nil
-    -- @swkeep: added PlaySoundFrontend to play menu sfx
-    PlaySoundFrontend(-1, 'Highlight_Cancel', 'DLC_HEIST_PLANNING_BOARD_SOUNDS', 1)
-    if not ActiveMenu then
+    local id = tonumber(data.id)
+    if not id or not ActiveMenu then
         CloseMenu()
+        cb("ok")
         return
     end
+    id = id + 1
+    PlaySoundFrontend(-1, 'Highlight_Cancel', 'DLC_HEIST_PLANNING_BOARD_SOUNDS', 1)
+
     local rData = ActiveMenu[id]
-    if rData then
-        if Promise ~= nil then
-            if rData.args then
-                rData.args['range'] = data.other_inputs
-            else
-                rData.args = {
-                    range = data.other_inputs
-                }
-            end
-            Promise:resolve(rData.args)
-            Promise = nil
-        end
+    if not rData then
+        CloseMenu()
+        cb("ok")
+        return
+    end
 
-        if rData.leave then
-            CloseMenu()
-            return
-        end
+    rData.args = rData.args or {}
+    rData.args['range'] = data.other_inputs
 
-        if rData.action then
-            -- @swkeep: added action to trigger a function
-            if rData.unpack then
-                rData.action(table.unpack(rData.args or {}))
-            else
-                rData.action(rData.args)
-            end
-        end
+    if Promise then
+        Promise:resolve(rData.args)
+        Promise = nil
+    end
 
-        -- this part should not triggered at all!
-        if not rData.event and rData.server then
-            assert(rData.event, 'The Server event was called but no event name was passed!')
-        elseif not rData.event and rData.client then
-            assert(rData.event, 'The Client event was called but no event name was passed!')
-        end
+    if rData.leave then
+        CloseMenu()
+        cb("ok")
+        return
+    end
 
-        if rData.event and Promise == nil then
-            -- @swkeep: added qbcore/fivem command
-            if rData.server then
-                if rData.unpack then
-                    TriggerServerEvent(rData.event, table.unpack(rData.args or {}))
-                else
-                    TriggerServerEvent(rData.event, rData.args)
-                end
-            elseif not rData.server then
-                if rData.unpack then
-                    TriggerEvent(rData.event, table.unpack(rData.args or {}))
-                else
-                    TriggerEvent(rData.event, rData.args)
-                end
-            elseif rData.client then
-                if rData.unpack then
-                    TriggerEvent(rData.event, table.unpack(rData.args or {}))
-                else
-                    TriggerEvent(rData.event, rData.args)
-                end
-            end
-
-            if rData.command then
-                ExecuteCommand(rData.event)
-            end
-
-            if QBCore and rData.QBCommand then
-                if rData.unpack then
-                    TriggerServerEvent('QBCore:CallCommand', rData.event, table.unpack(rData.args or {}))
-                    TriggerEvent(rData.event, rData.args)
-                else
-                    TriggerServerEvent('QBCore:CallCommand', rData.event, rData.args)
-                    TriggerEvent(rData.event, rData.args)
-                end
-            end
+    if rData.action then
+        if rData.unpack then
+            rData.action(table.unpack(rData.args))
+        else
+            rData.action(rData.args)
         end
     end
+
+    assert(not (rData.server or rData.client) or rData.event, 'The event was called but no event name was passed!')
+
+    if rData.event and not Promise then
+        local triggerEvent = rData.server and TriggerServerEvent or TriggerEvent
+        if rData.unpack then
+            triggerEvent(rData.event, table.unpack(rData.args))
+        else
+            triggerEvent(rData.event, rData.args)
+        end
+
+        if rData.command then
+            ExecuteCommand(rData.event)
+        end
+
+        if QBCore and rData.QBCommand then
+            TriggerServerEvent('QBCore:CallCommand', rData.event, table.unpack(rData.args))
+        end
+    end
+
     CloseMenu()
     cb("ok")
 end)
+
 
 RegisterNUICallback("cancel", function(data, cb)
     if Promise ~= nil then
@@ -130,7 +108,6 @@ ContextMenu = function(data, rtl)
     return table.unpack(Citizen.Await(Promise) or {})
 end
 
--- @swkeep: overlay
 Overlay = function(data)
     if not data then return end
     SendNUIMessage({
@@ -139,7 +116,6 @@ Overlay = function(data)
     })
 end
 
--- @swkeep: overlay
 CloseOverlay = function()
     SendNUIMessage({
         action = "CLOSE_OVERLAY",
@@ -171,12 +147,10 @@ ProcessParams = function(data)
                 v.args = PackParams(v.args)
             end
         end
-        -- @swkeep: get images from user inventory
         if v.image then
             local i, j = string.find(v.image, "http")
             if i and j then
-                -- it a http or https
-                v.image = v.image -- do nothing :)
+                v.image = v.image 
             else
                 if QBCore then
                     if QBCore.Shared.Items[tostring(v.image)] then
@@ -217,15 +191,13 @@ end
 
 exports("createMenu", ContextMenu)
 exports("closeMenu", CancelMenu)
--- @swkeep: overlay
 exports("Overlay", Overlay)
 exports("CloseOverlay", CloseOverlay)
 
-RegisterNetEvent("keep-menu:createMenu", ContextMenu)
-RegisterNetEvent("keep-menu:closeMenu", CancelMenu)
--- @swkeep: overlay
-RegisterNetEvent("keep-menu:Overlay", Overlay)
-RegisterNetEvent("keep-menu:closeOverlay", CloseOverlay)
+RegisterNetEvent("bit-menu:createMenu", ContextMenu)
+RegisterNetEvent("bit-menu:closeMenu", CancelMenu)
+RegisterNetEvent("bit-menu:Overlay", Overlay)
+RegisterNetEvent("bit-menu:closeOverlay", CloseOverlay)
 
 
 local function qb(menu)
@@ -273,7 +245,7 @@ local function qb(menu)
             end
 
             if temp_btn.event == 'qb-menu:closeMenu' then
-                temp_btn.event = 'keep-menu:closeMenu'
+                temp_btn.event = 'bit-menu:closeMenu'
             end
         end
         converted[key] = temp_btn
@@ -292,7 +264,6 @@ if DevMode then
                 subheader = 'test test as subheader',
                 icon = 'fa-solid fa-industry',
                 disabled = true,
-                -- spacer = true
             },
             {
                 search = true,
@@ -339,18 +310,6 @@ if DevMode then
             {
                 header = 'Creator',
                 subheader = 'test test as subheader',
-                range_slider = true,
-                name = 'money',
-                range = {
-                    min = 0,
-                    max = 10,
-                    step = 2,
-                    multiplier = 20,
-                }
-            },
-            {
-                header = 'Creator',
-                subheader = 'test test as subheader',
                 icon = 'fa-solid fa-sliders',
                 range_slider = true,
                 style = 'color:red;',
@@ -373,22 +332,11 @@ if DevMode then
             },
         }
 
-        for i = 1, 100, 1 do
-            menu[#menu + 1] = {
-                header = 'search for (' .. math.random(0, 1000) .. ')',
-                subheader = 'reset & close creator',
-                footer = i * i,
-                icon = 'fa-solid fa-trash',
-                searchable = true,
-                style = ('background:rgb(%s,%s,%s)'):format(math.random(50, 150), math.random(50, 150),
-                    math.random(50, 150))
-            }
-        end
-        exports['keep-menu']:createMenu(menu)
+        exports['bit-menu']:createMenu(menu)
     end
 
-    RegisterKeyMapping('+testmenu', 'test menu', 'keyboard', 'o')
-    RegisterCommand('+testmenu', function()
+    
+    RegisterCommand('testmenu', function()
         if not IsPauseMenuActive() then
             landing()
         end
@@ -418,3 +366,5 @@ RegisterNUICallback("mouse:search_not_found:sfx", function(data, cb)
     PlaySoundFrontend(-1, 'Hack_Failed', 'DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS', 1)
     cb("ok")
 end)
+
+

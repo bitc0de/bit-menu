@@ -68,7 +68,6 @@ const OpenMenu = (data, rtl) => {
 
 const CreateOverlay = (data) => {
     let ele = document.querySelector('.info')
-    // @swkeep: changed context to subheader as i always do :)
     let context = data.subheader ? data.subheader : ""
     let footer = data.footer ? data.footer : ""
     let element = $(`
@@ -278,20 +277,16 @@ function _search(Button, i, type, searchText) {
 }
 
 function make_buttons(data, i, rtl) {
-    // @swkeep: changed context to subheader as i always do :)
     let element = $(`
                 <div class="${data[i].disabled ? "buttonDisabled" : "button"} ${data[i].is_header ? "is-header" : ""} ${data[i].spacer ? "is-spacer" : ""} ${data[i].dark ? "dark" : ""}" id=${i} ${data[i].style ? `style="${data[i].style}"` : ""}>
-                <!-- @swkeep: added back/leave/icon -->
                 ${data[i].back && !data[i].disabled ? `<div class="icon" id=${i}> <i class="${rtl ? 'fa-solid fa-angle-right' : 'fa-solid fa-angle-left'}" id=${i}></i> </div>` : ""}
                 ${data[i].leave && !data[i].disabled && !data[i].back ? `<div class="icon"> <i class="fa-solid fa-circle-xmark" id=${i}></i> </div>` : ""}
                 ${data[i].icon ? `<div class="icon" id=${i}> <i class="${data[i].icon}" id=${i}></i> </div>` : ""}
     
-                <!-- @swkeep: added column to support icon -->
                     <div class="column">
                         ${data[i].header ? `<div class="header" id=${i}>${data[i].header}</div>` : ""}
                         ${data[i].subheader ? `<div class="context" id=${i}>${data[i].subheader}</div>` : ""}
                         ${data[i].footer ? `<div class="footer" id=${i}>${data[i].footer}</div>` : ""}
-                        <!-- @swkeep: changed subMenu to submenu :) -->
                         ${data[i].submenu && !data[i].disabled ? `<svg class="submenuicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>` : ""}
                     </div>
                 ${data[i].image ? `<img class="imageHover" src="${data[i].image}"/>` : ""}
@@ -386,7 +381,6 @@ $(document).click(function (event) {
                 }
             }
             if (Button[id].disabled || false) return;
-            // <!-- @swkeep: support for no args actions -->
             if (Button[id].is_header || false) return;
 
             if (!Button[id].event && !Button[id].action && !Button[id].leave && !Button[id].args) {

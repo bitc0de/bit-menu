@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
-    --main-btn-bg: #333a44;
-    --main-btn-bg-hover: #30475e;
-    --main-btn-disabled: rgba(102, 102, 102, 0.9);
+    --main-btn-bg: #000000bd;
+    --main-btn-bg-hover: #96a31d;
+    --main-btn-disabled: #96a31d;
     --main-color-text: white;
     --main-color-text-disabled: white;
     --animation-delay: 0.3s;
@@ -80,7 +80,7 @@ body::-webkit-scrollbar {
     border-radius: 0.3rem;
     display: flex;
     flex-direction: row;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
     user-select: none;
     align-items: center;
     cursor: pointer;
@@ -105,6 +105,7 @@ body::-webkit-scrollbar {
 
 .button:hover {
     background: var(--main-btn-bg-hover) !important;
+    color:black;
     transition: background var(--animation-delay) ease;
 }
 
@@ -123,7 +124,7 @@ body::-webkit-scrollbar {
     pointer-events: none;
     background: #292f36;
     border-radius: 0.3rem;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
 }
 
 .button .hover_information {
@@ -161,7 +162,7 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: left;
     flex-direction: row;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
     user-select: none;
     align-items: center;
     cursor: pointer;
@@ -183,7 +184,7 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: left;
     flex-direction: row;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
     user-select: none;
     align-items: center;
     cursor: pointer;
@@ -219,7 +220,7 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: start;
     flex-direction: row;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
     user-select: none;
     align-items: center;
     cursor: pointer;
@@ -243,7 +244,7 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: start;
     flex-direction: row;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
     user-select: none;
     align-items: center;
     cursor: none;
@@ -269,7 +270,7 @@ input#search {
     overflow: hidden;
     padding: var(--btn-padding);
     border-radius: 0.3rem;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
     user-select: none;
     display: flex;
     flex-direction: row;
@@ -296,7 +297,7 @@ input#searchDisabled {
     overflow: hidden;
     padding: var(--btn-padding);
     border-radius: 0.3rem;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
     user-select: none;
     display: flex;
     flex-direction: row;
@@ -326,7 +327,7 @@ input#searchDisabled {
     border-radius: 0.3rem;
     display: flex;
     flex-direction: row;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
     user-select: none;
     align-items: center;
     cursor: none,
@@ -434,7 +435,7 @@ input#searchDisabled {
     border-radius: 0.3rem;
     display: flex;
     flex-direction: row;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
     user-select: none;
     align-items: center;
     max-width: 50%;
@@ -564,7 +565,7 @@ input[type="range"]::-webkit-slider-runnable-track {
     overflow: hidden;
     padding: var(--btn-padding);
     border-radius: 0.3rem;
-    box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem transparent;
     user-select: none;
     display: flex;
     flex-direction: row;
