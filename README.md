@@ -1,7 +1,7 @@
 ![menu](https://i.ibb.co/xF3H2w3/image.png)
 
 
-This is a modified version of **[NH Context](https://github.com/nerohiro/nh-context)** by **[NeroHiro](https://github.com/nerohiro) and adapted by **[bitc0de](https://github.com/bitc0de)**
+This is a modified version of **[NH Context](https://github.com/nerohiro/nh-context)** by **[NeroHiro](https://github.com/nerohiro)** and adapted by **[bitc0de](https://github.com/bitc0de)**
 
 # Usage
 
