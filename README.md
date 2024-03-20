@@ -1,7 +1,7 @@
 ![menu](https://i.ibb.co/xF3H2w3/image.png)
 
 
-This is a modified version of **[NH Context](https://github.com/nerohiro/nh-context)** by **[NeroHiro](https://github.com/nerohiro)** and adapted by **[bitc0de](https://github.com/bitc0de)**
+This is a modified version of **[NH Context](https://github.com/nerohiro/nh-context)** by **[NeroHiro](https://github.com/nerohiro)** and css adapted by **[bitc0de](https://github.com/bitc0de)**
 
 # Usage
 
@@ -15,23 +15,23 @@ local inventoryName = 'qb-inventory'
 
 ```
     {
-        is_header = "true/false to disable clicking on this element @swkeep",
+        is_header = "true/false to disable clicking on this element",
         header = "The Header, whatever you want to put", -- Required
         subheader = "The base of the text in the button",
         footer = "The bottom text on the button",
         disabled = "true/false if you want to disable this button from being pressed, and will change to a disabled color",
         submenu = "true/false if you want to have an arrow showing that this button will access another menu",
         server = "true/false if you want the button to trigger a server event",
-        command = "ExecuteCommand @swkeep",
-        QBCommand = "QBCore:CallCommand @swkeep",
-        action = "trigger a function @swkeep",
+        command = "ExecuteCommand",
+        QBCommand = "QBCore:CallCommand",
+        action = "trigger a function",
         image = "add an image url here and itll show off to the left side when you hover over this button, example below",
-        unpack = true/false -- receive args as one pack to a table or unpacked args for function @swkeep
-        hide = true/false, -- @swkeep will skip element when true
+        unpack = true/false -- receive args as one pack to a table or unpacked args for function
+        hide = true/false, 
         event = "the event you actually want to trigger, remember if you set it server = true this will pass to the server side",
-        icon = "show a fontawesome icon @swkeep",
-        back = "add back icon to btn @swkeep",
-        leave = "add leave icon and close event to btn @swkeep",
+        icon = "show a fontawesome icon",
+        back = "add back icon to btn",
+        leave = "add leave icon and close event to btn",
         args = { -- These are the arguments you send with the event
             table,
             integer,
@@ -54,7 +54,6 @@ local inventoryName = 'qb-inventory'
           {
                header = "Sub Menu Button",
                subheader = "This goes to a sub menu",
-               -- event = "keep-crafting:client:test",
                image = "weapon_assaultrifle",
                icon = 'fa-solid fa-diagram-successor',
                args = { 1, 2 },
@@ -66,7 +65,7 @@ local inventoryName = 'qb-inventory'
           {
                header = "Sub Menu Button",
                subheader = "This goes to a sub menu",
-               event = "keep-crafting:client:test",
+               event = "script:client:test",
                image = "weapon_assaultrifle",
                icon = 'fa-solid fa-diagram-successor',
                submenu = true,
@@ -79,7 +78,7 @@ local inventoryName = 'qb-inventory'
           }
      }
 
-     exports['keep-menu']:createMenu(Menu)
+     exports['bit-menu']:createMenu(Menu)
 ```
 
 ```lua
@@ -94,7 +93,6 @@ local inventoryName = 'qb-inventory'
           {
                header = "Sub Menu Button",
                subheader = "This goes to a sub menu",
-               -- event = "keep-crafting:client:test",
                image = "weapon_assaultrifle",
                icon = 'fa-solid fa-diagram-successor',
                args = {
@@ -115,7 +113,7 @@ local inventoryName = 'qb-inventory'
 
      -- In args, `1` is returned because it has an integer index, and the rest of the data does not
      -- An non-integer indexes such as "some" or "wal" they will be packed into a table and returned last.
-     local one, rest = exports['keep-menu']:createMenu(Menu)
+     local one, rest = exports['bit-menu']:createMenu(Menu)
 ```
 
 # Overlay
@@ -140,7 +138,7 @@ local Overlay = {
      subheader = string.format('Your Team Points: 0/%d'),
      footer = string.format('Enemy Team Points: 0/%d'),
 }
-exports['keep-menu']:Overlay(Overlay)
+exports['bit-menu']:Overlay(Overlay)
 ```
 
 - or update values on runtime
@@ -158,10 +156,10 @@ CreateThread(function()
                subheader = string.format('Your Team Points: 0/%d', index),
                footer = string.format('Enemy Team Points: 0/%d', index + 5),
           }
-          exports['keep-menu']:Overlay(Overlay)
+          exports['bit-menu']:Overlay(Overlay)
           Wait(1000)
      end
      -- don't forget to close the overlay
-     TriggerEvent('keep-menu:closeOverlay')
+     TriggerEvent('bit-menu:closeOverlay')
 end)
 ```
